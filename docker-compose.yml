@@ -2,13 +2,19 @@ version: '3.7'
 
 services:
   php-fpm:
-    build: php-fpm
+    build:
+      context: php-fpm
+      args:
+        COMPOSE_PROJECT_NAME: '${COMPOSE_PROJECT_NAME}'
     ports:
       - 9000
     volumes:
       - ..:/var/www/${COMPOSE_PROJECT_NAME}:cached
   nginx:
-    build: nginx
+    build:
+      context: nginx
+      args:
+        COMPOSE_PROJECT_NAME: '${COMPOSE_PROJECT_NAME}'
     ports:
       - 80
       - 443

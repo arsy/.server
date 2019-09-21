@@ -2,7 +2,10 @@ FROM nginx:alpine
 
 LABEL maintainer="Yakup Arslan <me@yakupars.pw>"
 
-WORKDIR /var/www
+ARG COMPOSE_PROJECT_NAME
+ENV COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
+
+WORKDIR /var/www/$COMPOSE_PROJECT_NAME
 
 EXPOSE 80
 EXPOSE 443
