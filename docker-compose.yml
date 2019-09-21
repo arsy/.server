@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  php-fpm:
+    build: php-fpm
+    ports:
+      - 9000
+    volumes:
+      - ..:/var/www/${COMPOSE_PROJECT_NAME}:cached
+  nginx:
+    build: nginx
+    ports:
+      - 80
+      - 443
+    volumes:
+      - ..:/var/www/${COMPOSE_PROJECT_NAME}:cached
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+  mysql:
+    build: mysql
+    ports:
+      - 3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    depends_on:
+      - php-fpm
+      - nginx
