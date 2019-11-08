@@ -2,11 +2,13 @@ FROM php:fpm-alpine
 
 LABEL maintainer="Yakup Arslan <me@yakupars.pw>"
 
-RUN docker-php-ext-install pdo_mysql mysqli
+RUN apk add --no-cache icu-dev
+RUN docker-php-ext-install pdo_mysql mysqli intl
 
 RUN apk add --no-cache $PHPIZE_DEPS \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug mysqli
+    && docker-php-ext-enable xdebug mysqli intl
+
 
 ADD php.ini  /usr/local/etc/php/conf.d/
 ADD xdebug.ini  /usr/local/etc/php/conf.d/

@@ -17,7 +17,6 @@ services:
         COMPOSE_PROJECT_NAME: '${COMPOSE_PROJECT_NAME}'
     ports:
       - 80
-      - 443
     volumes:
       - ..:/var/www/${COMPOSE_PROJECT_NAME}:cached
       - ./nginx/conf.d:/etc/nginx/conf.d
